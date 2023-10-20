@@ -13,6 +13,7 @@ const handleFileChange = (event: Event) => {
 
 const parsedJson = ref<any>({});
 const parseJsonFile = (file: File) => {
+  // TODO: maybe use a web worker to handle this execution and add a loading indicator
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
     fileReader.onload = (event) => resolve(JSON.parse(event.target?.result as string || ''));
@@ -30,13 +31,14 @@ watch(file, async () => {
 
 <template>
   <main>
-    <EmptyState v-if="!file">
+    <!-- TODO: Add error state -->
+    <EmptyState v-if="!parsedJson">
       <template #action>
         <FileInput @on-change="handleFileChange" />
       </template>
     </EmptyState>
 
-    <JsonViewer :data="parsedJson" />
+    <JsonViewer v-else :data="parsedJson" />
   </main>
 </template>
 

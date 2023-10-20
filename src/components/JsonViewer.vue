@@ -4,6 +4,7 @@ defineProps<{
 }>();
 </script>
 
+<!-- TODO: Show the result object as the proposed UI -->
 <template>
   <pre>
     {{ data }}
